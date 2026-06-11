@@ -22,11 +22,11 @@
   --red: #ed4245;
   --yellow: #f0b232;
   --gray: #80848e;
+  --status-bg: #aeadaf;
   --border: rgba(255, 255, 255, 0.08);
 }
 
-html,
-body {
+html, body {
   margin: 0;
   min-height: 100%;
   font-family: Inter, "Segoe UI", Tahoma, Arial, sans-serif;
@@ -75,7 +75,7 @@ body {
   height: 112px;
   margin-top: -52px;
   border-radius: 50%;
-  background: var(--card-bg);
+  background: var(--status-bg);
   padding: 7px;
 }
 
@@ -99,6 +99,7 @@ body {
   background: var(--gray);
   border: 7px solid var(--card-bg);
   transition: background 0.3s ease;
+  z-index: 2;
 }
 
 .status-dot.online { background: var(--green); }
@@ -116,6 +117,7 @@ body {
   border: 7px solid var(--card-bg);
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: 1;
 }
 
 .status-pulse.online {
@@ -266,6 +268,12 @@ body {
   color: var(--muted);
   font-size: 13px;
   font-weight: 800;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.nav-item:hover {
+  color: var(--text);
 }
 
 .nav-item.active {
@@ -306,6 +314,152 @@ body {
 .status-text .status-indicator.dnd { background: var(--red); }
 .status-text .status-indicator.offline { background: var(--gray); }
 
+/* Activity Section */
+.activity-section {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.activity-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.activity-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--green);
+}
+
+.activity-title {
+  margin: 0;
+  color: var(--subtle);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  margin-bottom: 8px;
+}
+
+.activity-item:last-child {
+  margin-bottom: 0;
+}
+
+.activity-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--card-dark);
+}
+
+.activity-image.spotify {
+  border-radius: 50%;
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.activity-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-name {
+  margin: 0 0 3px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-details {
+  margin: 0 0 2px;
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-state {
+  margin: 0;
+  color: var(--subtle);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-time {
+  margin-top: 4px;
+  color: var(--subtle);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.activity-progress {
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.activity-progress-bar {
+  height: 100%;
+  background: var(--green);
+  border-radius: 999px;
+  transition: width 1s linear;
+}
+
+.no-activity {
+  text-align: center;
+  padding: 20px;
+  color: var(--subtle);
+  font-size: 13px;
+}
+
+/* Spotify specific */
+.spotify-bar {
+  background: #1db954 !important;
+}
+
+/* Custom status */
+.custom-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.custom-status-emoji {
+  font-size: 16px;
+}
+
 @keyframes floatIn {
   from {
     opacity: 0;
@@ -344,7 +498,7 @@ body {
 
         <div class="name-row">
           <div class="identity">
-            <h1 class="display-name">يارب وفق سالم باختبارته</h1>
+            <h1 class="display-name">يارب وفق سالم باختبراته</h1>
             <div class="handle-row">
               <span>soq4_</span>
               <span class="verified" title="Verified">✓</span>
@@ -364,7 +518,18 @@ body {
 
         <section class="about-panel">
           <p class="label">About Me</p>
-          <p class="bio">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ ٱلرَّحْمَـٰنِ  ٱلرَّحِيمِ  مَـٰلِكِ يَوْمِ  ٱلدِّينِ  إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِين ٱهْدِنَا ٱلصِّراطَ ٱلْمُسْتَقِيمَ صِراطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ  وَلَا ٱلضَّآلِّينَ</p>
+          <p class="bio">سْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ ٱلرَّحْمَـٰنِ  ٱلرَّحِيمِ  مَـٰلِكِ يَوْمِ  ٱلدِّينِ  إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِين ٱهْدِنَا ٱلصِّراطَ ٱلْمُسْتَقِيمَ صِراطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ  وَلَا ٱلضَّآلِّينَ</p>
+
+          <!-- Activity Section -->
+          <div class="activity-section" id="activitySection" style="display: none;">
+            <div class="activity-header">
+              <svg class="activity-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              <p class="activity-title" id="activityTitle">Playing a game</p>
+            </div>
+            <div id="activitiesList"></div>
+          </div>
 
           <div class="member-grid">
             <div class="member-item">
@@ -377,6 +542,8 @@ body {
 
       <nav class="bottom-bar" aria-label="Profile tabs">
         <div class="nav-item active">Profile</div>
+        <div class="nav-item">Activity</div>
+        <div class="nav-item">Info</div>
       </nav>
     </section>
 
@@ -393,7 +560,111 @@ body {
       offline: { color: '#80848e', label: 'Offline', class: 'offline' }
     };
 
-    async function updateStatus() {
+    const activityTypeLabels = {
+      0: 'Playing',
+      1: 'Streaming',
+      2: 'Listening to',
+      3: 'Watching',
+      4: 'Custom Status',
+      5: 'Competing in'
+    };
+
+    function formatDuration(ms) {
+      const seconds = Math.floor(ms / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+
+      if (days > 0) return `${days}d ${hours % 24}h`;
+      if (hours > 0) return `${hours}h ${minutes % 60}m`;
+      if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
+      return `${seconds}s`;
+    }
+
+    function getActivityImageUrl(activity) {
+      if (!activity.assets) return '';
+
+      let imageKey = activity.assets.large_image || activity.assets.small_image;
+      if (!imageKey) return '';
+
+      // Spotify
+      if (activity.name === 'Spotify' && imageKey.startsWith('spotify:')) {
+        return imageKey.replace('spotify:', 'https://i.scdn.co/image/');
+      }
+
+      // Discord app assets
+      if (activity.application_id) {
+        if (imageKey.startsWith('mp:')) {
+          return `https://media.discordapp.net/${imageKey.slice(3)}`;
+        }
+        return `https://cdn.discordapp.com/app-assets/${activity.application_id}/${imageKey}.png`;
+      }
+
+      return '';
+    }
+
+    function renderActivity(activity, isSpotify = false) {
+      const imageUrl = isSpotify ? activity.album_art_url : getActivityImageUrl(activity);
+      const typeLabel = isSpotify ? 'Listening to' : (activityTypeLabels[activity.type] || 'Playing');
+      const name = isSpotify ? 'Spotify' : activity.name;
+      const details = isSpotify ? activity.song : (activity.details || '');
+      const state = isSpotify ? `by ${activity.artist}` : (activity.state || '');
+
+      let timeHtml = '';
+      if (activity.timestamps) {
+        const start = activity.timestamps.start;
+        const end = activity.timestamps.end;
+
+        if (isSpotify && start && end) {
+          const now = Date.now();
+          const total = end - start;
+          const current = now - start;
+          const progress = Math.min((current / total) * 100, 100);
+
+          const currentMin = Math.floor(current / 60000);
+          const currentSec = Math.floor((current % 60000) / 1000);
+          const totalMin = Math.floor(total / 60000);
+          const totalSec = Math.floor((total % 60000) / 1000);
+
+          timeHtml = `
+            <div class="activity-time">${currentMin}:${currentSec.toString().padStart(2, '0')} / ${totalMin}:${totalSec.toString().padStart(2, '0')}</div>
+            <div class="activity-progress">
+              <div class="activity-progress-bar spotify-bar" style="width: ${progress}%"></div>
+            </div>
+          `;
+        } else if (start) {
+          const elapsed = Date.now() - start;
+          timeHtml = `<div class="activity-time">${formatDuration(elapsed)} elapsed</div>`;
+        }
+      }
+
+      const imageClass = isSpotify ? 'activity-image spotify' : 'activity-image';
+
+      return `
+        <div class="activity-item">
+          ${imageUrl ? `<img src="${imageUrl}" alt="${name}" class="${imageClass}" onerror="this.style.display='none'">` : '<div class="activity-image" style="background: var(--card-dark); display: grid; place-items: center; font-size: 20px;">🎮</div>'}
+          <div class="activity-info">
+            <p class="activity-name">${typeLabel} ${name}</p>
+            ${details ? `<p class="activity-details">${details}</p>` : ''}
+            ${state ? `<p class="activity-state">${state}</p>` : ''}
+            ${timeHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCustomStatus(activity) {
+      return `
+        <div class="activity-item" style="align-items: center;">
+          <div class="activity-info" style="display: flex; align-items: center; gap: 8px;">
+            ${activity.emoji ? `<span class="custom-status-emoji">${activity.emoji.name || activity.emoji}</span>` : ''}
+            <span style="color: var(--muted); font-size: 13px;">${activity.state || ''}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    async function updatePresence() {
       try {
         const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
         const data = await res.json();
@@ -403,34 +674,77 @@ body {
           return;
         }
 
-        const status = data.data.discord_status || 'offline';
+        const lanyard = data.data;
+
+        // Update status
+        const status = lanyard.discord_status || 'offline';
         const config = statusConfig[status] || statusConfig.offline;
 
-        // Update dot
         const dot = document.getElementById('statusDot');
         dot.className = `status-dot ${config.class}`;
         dot.setAttribute('aria-label', config.label);
 
-        // Update pulse
         const pulse = document.getElementById('statusPulse');
         pulse.className = `status-pulse ${config.class}`;
 
-        // Update text indicator
         const indicator = document.getElementById('statusIndicator');
         indicator.className = `status-indicator ${config.class}`;
 
-        // Update label
         document.getElementById('statusLabel').textContent = config.label;
 
-        console.log('Status updated:', config.label);
+        // Update activities
+        const activitySection = document.getElementById('activitySection');
+        const activitiesList = document.getElementById('activitiesList');
+        const activityTitle = document.getElementById('activityTitle');
+
+        let activitiesHtml = '';
+        let hasActivity = false;
+
+        // Spotify
+        if (lanyard.listening_to_spotify && lanyard.spotify) {
+          activitiesHtml += renderActivity(lanyard.spotify, true);
+          hasActivity = true;
+          activityTitle.textContent = 'Listening to Spotify';
+        }
+
+        // Other activities
+        if (lanyard.activities && lanyard.activities.length > 0) {
+          lanyard.activities.forEach(activity => {
+            // Skip custom status (type 4) - render separately
+            if (activity.type === 4) {
+              activitiesHtml += renderCustomStatus(activity);
+              hasActivity = true;
+              return;
+            }
+
+            // Skip Spotify (already handled)
+            if (activity.name === 'Spotify') return;
+
+            activitiesHtml += renderActivity(activity);
+            hasActivity = true;
+
+            if (!lanyard.listening_to_spotify) {
+              activityTitle.textContent = activityTypeLabels[activity.type] + ' ' + activity.name;
+            }
+          });
+        }
+
+        if (hasActivity) {
+          activitySection.style.display = 'block';
+          activitiesList.innerHTML = activitiesHtml;
+        } else {
+          activitySection.style.display = 'none';
+        }
+
+        console.log('Presence updated:', config.label, lanyard.activities?.length || 0, 'activities');
       } catch (err) {
-        console.error('Failed to fetch status:', err);
+        console.error('Failed to fetch presence:', err);
       }
     }
 
-    // Update immediately and every 30 seconds
-    updateStatus();
-    setInterval(updateStatus, 30000);
+    // Update immediately and every 15 seconds
+    updatePresence();
+    setInterval(updatePresence, 15000);
   </script>
 </body>
 </html>
